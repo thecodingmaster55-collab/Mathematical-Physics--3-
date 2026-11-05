@@ -1,0 +1,105 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOTm5Q9cvCXvMlOB3v94Jg5",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/thecodingmaster55-collab/Mathematical-Physics--3-/blob/main/Untitled1.ipynb%20Unit%202..\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bqdbr9_M-Vro",
+        "outputId": "ca7cad8d-010e-4017-eda5-02c5e444693e"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Gauss-Legendre Integration Result: 0.718281828393355\n",
+            "Legendre Polynomial Coefficients: [-6.37573095e-17  9.03535273e-01  1.55721202e-15 -6.29767680e-02]\n"
+          ]
+        }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "from scipy.integrate import fixed_quad\n",
+        "\n",
+        "\n",
+        "def f(x):\n",
+        "    return x**2 * np.exp(x)\n",
+        "\n",
+        "\n",
+        "result, _ = fixed_quad(f, 0, 1, n=5)\n",
+        "print(\"Gauss-Legendre Integration Result:\", result)\n",
+        "\n",
+        "\n",
+        "x_vals = np.linspace(-1, 1, 100)\n",
+        "y_vals = np.sin(x_vals)\n",
+        "\n",
+        "\n",
+        "coef = np.polynomial.legendre.legfit(x_vals, y_vals, deg=3)\n",
+        "print(\"Legendre Polynomial Coefficients:\", coef)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "from scipy.special import roots_laguerre, roots_hermite\n",
+        "\n",
+        "n = 5\n",
+        "nodes, weights = roots_laguerre(n)\n",
+        "integral_laguerre = np.sum(weights * (1 / (1 + nodes**2)))\n",
+        "print(\"Gauss-Laguerre Integral Result:\", integral_laguerre)\n",
+        "\n",
+        "nodes_h, weights_h = roots_hermite(n)\n",
+        "integral_hermite = np.sum(weights_h * np.cos(nodes_h))\n",
+        "print(\"Gauss-Hermite Integral Result:\", integral_hermite)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Gpg6Qu0A-xli",
+        "outputId": "f970b4db-fcd9-45c0-dcce-0a87f21eaa00"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Gauss-Laguerre Integral Result: 0.6263776894509905\n",
+            "Gauss-Hermite Integral Result: 1.3803900759356564\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
